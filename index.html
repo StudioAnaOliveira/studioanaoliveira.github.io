@@ -184,7 +184,7 @@ textarea.in{min-height:90px;resize:vertical}
 .modal{position:fixed;inset:0;background:rgba(42,28,29,.45);display:flex;align-items:flex-end;justify-content:center;z-index:40;padding:16px}
 .sheet{background:var(--bg);border-radius:20px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow:auto}
 @media (min-width:700px){.modal{align-items:center}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}} .nav-brand{display:none} @media (min-width:900px){body{font-size:15.5px} .nav{top:0;bottom:auto;border-top:0;border-bottom:1px solid var(--line);padding-top:12px;padding-bottom:12px} .nav .in-nav{max-width:1080px;display:flex;align-items:center;gap:4px} .nav-brand{display:block;margin-right:auto;font-family:var(--display);font-style:italic;font-size:22px;color:var(--ink);line-height:1.1} .nav-brand small{display:block;font-family:var(--body);font-style:normal;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)} .nav button{flex-direction:row;gap:8px;font-size:14px;padding:9px 16px;border-radius:999px} .nav button svg{width:18px;height:18px} .nav button.on{background:var(--soft)} body:has(#nav:not([hidden])) #app{padding-top:76px} .wrap{padding-bottom:64px} .wrap:not(.wide){max-width:760px} .wrap:not(.wide)>.top:has(.brand){display:none} .wrap:has(>.home-side){max-width:1080px;display:grid;grid-template-columns:minmax(300px,400px) 1fr;column-gap:64px;align-items:start;padding-top:24px} .home-side{position:sticky;top:100px} .home-side .hero{grid-template-columns:1fr;gap:20px;padding-top:0} .home-side .avatar{width:200px;height:200px;border-width:4px} .home-side .hero h1{font-size:46px} .home-main>.row:first-child{margin-top:0!important} .svc{padding:18px 0} .svc h3{font-size:17px} .toast{bottom:32px}}
 </style>
 </head>
 <body>
@@ -456,7 +456,7 @@ function renderNav(){
   if (S.view === "admin" || S.view === "auth" || S.view === "adminLogin") { $nav.hidden = true; return; }
   $nav.hidden = false;
   const items = [["home","Início",IC.home],["book","Agendar",IC.cal],["mine","Meus horários",IC.list],["account", S.isAdmin ? "Painel" : "Conta", S.isAdmin ? IC.eye : IC.user]];
-  $nav.innerHTML = `<div class="in-nav">${items.map(([k,l,i]) =>
+  $nav.innerHTML = `<div class="in-nav"><span class="nav-brand">${esc(S.settings.name)}<small>${esc(S.settings.title)}</small></span>${items.map(([k,l,i]) =>
     `<button data-nav="${k}" class="${S.view===k?"on":""}" aria-label="${l}">${i}<span>${l}</span></button>`).join("")}</div>`;
 }
 
@@ -476,7 +476,7 @@ function vHome(){
   const svcs = S.services.filter(s => s.active !== false);
   const next = S.mine.find(b => b.status === "confirmado" && b.date >= ymd(new Date()));
   return `<div class="wrap">
-    ${topBar(S.user ? "" : `<button class="btn ghost sm" data-act="login">Entrar</button>`)}
+    ${topBar(S.user ? "" : `<button class="btn ghost sm" data-act="login">Entrar</button>`)}<div class="home-side">
     <section class="hero">
       ${avatarHtml()}
       <div><p class="eyebrow">${esc(st.title)}</p><h1>${esc(first)} <em>${esc(rest)}</em></h1></div>
@@ -494,7 +494,7 @@ function vHome(){
       <p style="font-family:var(--display);font-size:22px;margin-top:4px">${esc(fmtDate(next.date))} · ${esc(next.start)}</p>
       <p class="muted small">${esc(next.serviceName)}</p></div>` : ""}
 
-    <div class="row between" style="margin:28px 0 6px"><h2 class="display" style="font-size:24px">Procedimentos</h2><span class="small muted">${svcs.length} opções</span></div>
+    </div><div class="home-main"><div class="row between" style="margin:28px 0 6px"><h2 class="display" style="font-size:24px">Procedimentos</h2><span class="small muted">${svcs.length} opções</span></div>
     <div class="card" style="padding:4px 16px">
       ${svcs.length ? svcs.map(s => `<button class="svc" data-pick="${esc(s.id)}">
           <h3>${esc(s.name)}</h3><span class="price">${brl(s.price)}</span>
@@ -503,7 +503,7 @@ function vHome(){
     </div>
     <div style="margin-top:18px"><button class="btn block" data-nav="book">Agendar horário</button></div>
     ${st.policy ? `<p class="small muted" style="margin-top:16px">${esc(st.policy)}</p>` : ""}
-    <p style="text-align:center;margin-top:36px"><button class="link small" style="color:var(--ink-2)" data-act="adminArea">Área da dona</button></p>
+    <p style="text-align:center;margin-top:36px"><button class="link small" style="color:var(--ink-2)" data-act="adminArea">Área da dona</button></p></div>
   </div>`;
 }
 
