@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ana Oliveira Lash Studio</title>
+<meta name="description" content="Agende sua extensão de cílios e design de sobrancelhas com Ana Oliveira, em São João de Meriti - RJ.">
+<meta name="theme-color" content="#2a1c1d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,400;1,6..96,500&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+/* ================================================================
+   CONFIGURAÇÃO — preencha antes de publicar (veja LEIA-ME.md)
+   ================================================================ */
+window.APP_CONFIG = {
+  firebase: {
+    apiKey: "COLE_AQUI",
+    authDomain: "SEU-PROJETO.firebaseapp.com",
+    projectId: "SEU-PROJETO",
+    storageBucket: "SEU-PROJETO.appspot.com",
+    messagingSenderId: "000000000000",
+    appId: "1:000000000000:web:0000000000000000"
+  },
+  // Usuário da "Área da dona". A senha ela mesma cria no primeiro acesso.
+  adminUser: "ana"
+};
+</script>
+
+<style>
+/* Layout: app de celular (coluna de 480px) para a cliente; painel largo para a dona */
+:root{
+  --bg:#fbf6f5;          /* pó de arroz rosado */
+  --surface:#ffffff;
+  --soft:#f3e6e5;
+  --line:#e8d7d5;
+  --ink:#2a1c1d;         /* espresso */
+  --ink-2:#6e5a5a;
+  --accent:#8c4a5b;      /* malva / berry */
+  --accent-ink:#ffffff;
+  --gold:#a8834f;
+  --ok:#2f7a55; --ok-bg:#e3f2ea;
+  --warn:#a0620f; --warn-bg:#fbefd9;
+  --bad:#a63a3a;  --bad-bg:#f8e2e2;
+  --display:"Bodoni Moda", "Didot", Georgia, serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:14px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:500}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.wrap{max-width:480px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 110px max(16px,env(safe-area-inset-left,0px))}
+.wide{max-width:1080px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.display{font-family:var(--display)}
+.muted{color:var(--ink-2)}
+.small{font-size:13px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
+
+/* topo */
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 0 6px;gap:10px}
+.brand{font-family:var(--display);font-style:italic;font-size:20px}
+.brand small{display:block;font-family:var(--body);font-style:normal;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+
+/* botões */
+.btn{appearance:none;border:0;border-radius:999px;padding:13px 20px;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink);display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:transform .12s, opacity .12s}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.block{width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.soft{background:var(--soft);color:var(--ink)}
+.btn.sm{padding:8px 14px;font-size:13px}
+.btn.danger{background:var(--bad-bg);color:var(--bad)}
+.link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;cursor:pointer}
+
+/* campos */
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.in{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-weight:400;color:var(--ink)}
+textarea.in{min-height:90px;resize:vertical}
+.in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.divider{height:1px;background:var(--line);margin:4px 0}
+
+/* perfil hero */
+.hero{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;padding:18px 0 8px}
+.avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;background:var(--soft);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+.avatar.ph{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-style:italic;font-size:38px;color:var(--accent)}
+.hero h1{font-family:var(--display);font-size:30px;line-height:1.05}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.bio{margin:10px 0 0;color:var(--ink-2);white-space:pre-line}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:var(--soft);font-size:13px;font-weight:500;color:var(--ink);text-decoration:none}
+
+/* serviços */
+.svc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 0;border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;width:100%}
+.svc:first-child{border-top:0}
+.svc h3{font-size:16px;font-weight:600}
+.svc .price{font-family:var(--display);font-size:20px;white-space:nowrap}
+.svc .meta{font-size:13px;color:var(--ink-2);grid-column:1/-1}
+.svc.sel{background:var(--soft);margin:0 -16px;padding:14px 16px;width:calc(100% + 32px)}
+.dur{font-variant-numeric:tabular-nums}
+
+/* passos */
+.steps{display:flex;gap:6px;margin:14px 0 18px}
+.steps span{flex:1;height:3px;border-radius:3px;background:var(--line)}
+.steps span.on{background:var(--accent)}
+
+/* datas e horários */
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x mandatory;margin:0 -16px;padding-left:16px;padding-right:16px}
+.day{flex:0 0 62px;scroll-snap-align:start;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 0;text-align:center;cursor:pointer}
+.day b{display:block;font-family:var(--display);font-size:22px;font-weight:500;line-height:1.1}
+.day small{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.day.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.day.sel small{color:var(--bg);opacity:.75}
+.day:disabled{opacity:.35;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px}
+.slot{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 0;cursor:pointer;font-weight:600;font-variant-numeric:tabular-nums}
+.slot.sel{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.empty{padding:22px;text-align:center;color:var(--ink-2);border:1px dashed var(--line);border-radius:var(--r)}
+
+/* resumo */
+.sum{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:14px}
+.sum dt{color:var(--ink-2)}
+.sum dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.sum .tot{font-family:var(--display);font-size:22px;font-weight:500}
+
+/* status */
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
+.p-warn{background:var(--warn-bg);color:var(--warn)}
+.p-bad{background:var(--bad-bg);color:var(--bad)}
+.p-mute{background:var(--soft);color:var(--ink-2)}
+
+.bk{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.bk:first-child{border-top:0}
+.bk .when{text-align:center;border-right:1px solid var(--line);padding-right:12px}
+.bk .when b{display:block;font-family:var(--display);font-size:24px;font-weight:500;line-height:1}
+.bk .when small{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.bk .when .t{font-weight:700;font-variant-numeric:tabular-nums;margin-top:6px;font-size:14px}
+
+/* navegação inferior */
+.nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:20}
+.nav .in-nav{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.nav button{background:none;border:0;padding:6px 0;font-size:11px;font-weight:600;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.nav button svg{width:22px;height:22px}
+.nav button.on{color:var(--accent)}
+
+/* admin */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px 0 14px}
+.tab{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.stat b{display:block;font-family:var(--display);font-size:30px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.1}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
+.hours{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px 10px;align-items:center}
+.daygroup h3{font-family:var(--display);font-size:20px;margin:18px 0 4px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl td,.tbl th{padding:10px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);border-top:0}
+.scroll-x{overflow-x:auto}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.toggle input{width:18px;height:18px;accent-color:var(--accent)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:14px;z-index:50;max-width:calc(100% - 32px);box-shadow:0 8px 30px rgba(0,0,0,.18)}
+.loader{display:flex;align-items:center;justify-content:center;min-height:60vh;font-family:var(--display);font-style:italic;font-size:22px;color:var(--ink-2)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(42,28,29,.45);display:flex;align-items:flex-end;justify-content:center;z-index:40;padding:16px}
+.sheet{background:var(--bg);border-radius:20px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow:auto}
+@media (min-width:700px){.modal{align-items:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="app"><div class="loader">carregando…</div></div>
+<div id="nav" class="nav" hidden></div>
+<div id="toast" class="toast" hidden role="status"></div>
+<div id="modal" class="modal" hidden></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+(function(){
+"use strict";
+const CFG = window.APP_CONFIG;
+const $app = document.getElementById("app");
+const $nav = document.getElementById("nav");
+const $modal = document.getElementById("modal");
+
+/* ---------------- utilidades ---------------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const brl = n => (Number(n)||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const toMin = t => { const [h,m] = String(t).split(":").map(Number); return h*60+(m||0); };
+const fromMin = m => String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+const ymd = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const parseYmd = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y,m-1,d); };
+const WD = ["dom","seg","ter","qua","qui","sex","sáb"];
+const WD_FULL = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+const MES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const fmtDur = m => { const h = Math.floor(m/60), r = m%60; return h ? (h+"h"+(r?String(r).padStart(2,"0"):"")) : r+"min"; };
+const fmtDate = s => { const d = parseYmd(s); return WD_FULL[d.getDay()]+", "+d.getDate()+" de "+MES[d.getMonth()]; };
+const onlyDigits = s => String(s||"").replace(/\D/g,"");
+const waLink = (phone, text) => { let p = onlyDigits(phone); if (p.length <= 11) p = "55"+p; return "https://wa.me/"+p+(text?"?text="+encodeURIComponent(text):""); };
+let toastT;
+function toast(msg){ const t = document.getElementById("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(()=>t.hidden = true, 3800); }
+function errMsg(e){
+  const c = e && e.code || "";
+  const map = {
+    "auth/invalid-credential":"E-mail ou senha incorretos.",
+    "auth/wrong-password":"E-mail ou senha incorretos.",
+    "auth/user-not-found":"Não encontramos uma conta com esse e-mail.",
+    "auth/email-already-in-use":"Esse e-mail já tem conta. Use “Entrar”.",
+    "auth/weak-password":"A senha precisa ter pelo menos 6 caracteres.",
+    "auth/invalid-email":"Confira o e-mail digitado.",
+    "auth/too-many-requests":"Muitas tentativas. Espere alguns minutos e tente de novo.",
+    "permission-denied":"Você não tem permissão para isso.",
+  };
+  return map[c] || (e && e.message) || "Algo deu errado. Tente de novo.";
+}
+
+/* ---------------- configuração pendente ---------------- */
+if (!CFG || !CFG.firebase || CFG.firebase.apiKey === "COLE_AQUI") {
+  $app.innerHTML = `<div class="wrap" style="padding-top:40px"><div class="card stack">
+    <p class="eyebrow">Falta configurar</p>
+    <h1 class="display" style="font-size:28px">Conecte o Firebase</h1>
+    <p class="muted">Abra o arquivo <b>index.html</b>, procure o bloco <b>CONFIGURAÇÃO</b> no topo e cole os dados do seu projeto Firebase. O passo a passo está no LEIA-ME.md.</p>
+  </div></div>`;
+  return;
+}
+
+firebase.initializeApp(CFG.firebase);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const TS = firebase.firestore.FieldValue.serverTimestamp;
+
+/* ---------------- estado ---------------- */
+const DEFAULT_SETTINGS = {
+  name:"Ana Oliveira", title:"Lash Designer",
+  bio:"Realçando a beleza do seu olhar.\nEspecialista em Extensão de Cílios & Sobrancelhas.",
+  city:"São João de Meriti - RJ", address:"", instagram:"aoliveiradesigner", whatsapp:"5521986547075", photo:"",
+  paymentMode:"pix", pixKey:"", pixKeyType:"telefone", pixName:"", pixCity:"", depositPercent:30, interval:30, minLeadHours:2, cancelHours:24, maxDays:45, holdMinutes:30,
+  policy:"O sinal garante o seu horário e é descontado do valor do procedimento no dia. Cancelamentos com menos de 24h de antecedência não têm o sinal devolvido. Chegue com os olhos sem maquiagem.",
+  hours:{
+    0:{on:false,open:"09:00",close:"18:00"}, 1:{on:true,open:"09:00",close:"19:00"}, 2:{on:true,open:"09:00",close:"19:00"},
+    3:{on:true,open:"09:00",close:"19:00"}, 4:{on:true,open:"09:00",close:"19:00"}, 5:{on:true,open:"09:00",close:"19:00"},
+    6:{on:true,open:"09:00",close:"16:00"}
+  },
+  daysOff:[]
+};
+const SAMPLE_SERVICES = [
+  {name:"Extensão Fio a Fio", duration:150, price:150, desc:"Efeito natural, um fio aplicado em cada cílio. Manutenção a cada 15–20 dias.", order:1},
+  {name:"Volume Brasileiro", duration:150, price:170, desc:"Fios em Y para um olhar marcado e leve.", order:2},
+  {name:"Volume Russo", duration:180, price:200, desc:"Leques feitos à mão, máximo volume.", order:3},
+  {name:"Manutenção de Cílios", duration:90, price:90, desc:"Reposição dos fios em até 20 dias da aplicação.", order:4},
+  {name:"Lash Lifting", duration:60, price:110, desc:"Curvatura dos seus próprios cílios, dura de 6 a 8 semanas.", order:5},
+  {name:"Design de Sobrancelha", duration:40, price:40, desc:"Mapeamento e modelagem com pinça.", order:6},
+  {name:"Design com Henna", duration:60, price:55, desc:"Design + henna para preencher falhas.", order:7},
+  {name:"Brow Lamination", duration:60, price:120, desc:"Fios alinhados e penteados por semanas.", order:8},
+];
+
+const S = {
+  user:null, profile:null, isAdmin:false,
+  settings:{...DEFAULT_SETTINGS}, services:[], mine:[],
+  view:"home", adminTab:"agenda",
+  book:{step:1, service:null, date:null, time:null, busy:[], loadingSlots:false},
+  adminBookings:[], adminBusy:[], adminUsers:[], adminShowPast:false, pastBookings:[],
+};
+let unsubs = [];
+// A conta da dona usa um e-mail interno (nenhuma mensagem é enviada para ele)
+const ADMIN_EMAIL = (String(CFG.adminUser||"ana").trim().toLowerCase() + "@" + CFG.firebase.projectId + ".firebaseapp.com");
+const isAdminEmail = email => !!email && email.toLowerCase() === ADMIN_EMAIL;
+
+function startAdmin(){
+  const today = ymd(new Date());
+  unsubs.push(db.collection("bookings").where("date",">=",today).orderBy("date").onSnapshot(q => {
+    S.adminBookings = q.docs.map(d => ({id:d.id, ...d.data()}));
+    render();
+  }, e => toast(errMsg(e))));
+  unsubs.push(db.collection("busy").where("date",">=",today).onSnapshot(q => {
+    S.adminBusy = q.docs.map(d => ({id:d.id, ...d.data()}));
+    render();
+  }));
+  unsubs.push(db.collection("users").onSnapshot(q => {
+    S.adminUsers = q.docs.map(d => ({id:d.id, ...d.data()})).sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+    render();
+  }));
+}
+
+/* ---------------- status ---------------- */
+function holdExpired(b){
+  return b.status === "aguardando_pagamento" && b.holdUntil && b.holdUntil < Date.now();
+}
+function statusPill(b){
+  if (holdExpired(b)) return `<span class="pill p-mute">Pagamento expirado</span>`;
+  const m = {
+    aguardando_pagamento:["p-warn","Aguardando pagamento"],
+    confirmado:["p-ok","Confirmado"],
+    concluido:["p-mute","Concluído"],
+    cancelado:["p-bad","Cancelado"],
+  }[b.status] || ["p-mute", b.status];
+  return `<span class="pill ${m[0]}">${m[1]}</span>`;
+}
+
+/* ---------------- horários disponíveis ---------------- */
+function dayOpen(dateStr){
+  const st = S.settings, d = parseYmd(dateStr);
+  if ((st.daysOff||[]).includes(dateStr)) return null;
+  const extra = (st.extraDays||{})[dateStr];
+  if (extra) return {on:true, open:extra.open, close:extra.close};
+  const h = st.hours[d.getDay()];
+  return h && h.on ? h : null;
+}
+function computeSlots(dateStr, duration, busy){
+  const h = dayOpen(dateStr); if (!h) return [];
+  const step = Number(S.settings.interval)||30;
+  const open = toMin(h.open), close = toMin(h.close);
+  const now = new Date(), lead = (Number(S.settings.minLeadHours)||0)*60;
+  const isToday = dateStr === ymd(now);
+  const nowMin = now.getHours()*60 + now.getMinutes();
+  const active = busy.filter(b => !(b.hold && b.expiresAt && b.expiresAt < Date.now()));
+  const out = [];
+  for (let t = open; t + duration <= close; t += step) {
+    if (isToday && t < nowMin + lead) continue;
+    const clash = active.some(b => t < toMin(b.end) && toMin(b.start) < t + duration);
+    if (!clash) out.push(fromMin(t));
+  }
+  return out;
+}
+async function loadBusy(dateStr){
+  S.book.loadingSlots = true; render();
+  try {
+    const q = await db.collection("busy").where("date","==",dateStr).get();
+    S.book.busy = q.docs.map(d => d.data());
+  } catch(e) { S.book.busy = []; toast(errMsg(e)); }
+  S.book.loadingSlots = false; render();
+}
+/* ---------------- Pix (BR Code oficial do Banco Central) ---------------- */
+function pixReady(){ const st = S.settings; return st.paymentMode === "pix" && !!String(st.pixKey||"").trim(); }
+const plain = (s, n) => String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^A-Za-z0-9 ]/g,"").toUpperCase().trim().slice(0,n);
+function pixKeyNorm(){
+  const st = S.settings, k = String(st.pixKey||"").trim();
+  if (st.pixKeyType === "telefone") { let d = onlyDigits(k); if (!d.startsWith("55") || d.length <= 11) d = "55"+d; return "+"+d; }
+  if (st.pixKeyType === "cpf" || st.pixKeyType === "cnpj") return onlyDigits(k);
+  if (st.pixKeyType === "email") return k.toLowerCase();
+  return k;
+}
+function crc16(str){
+  let crc = 0xFFFF;
+  for (let i = 0; i < str.length; i++) {
+    crc ^= str.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF;
+  }
+  return crc.toString(16).toUpperCase().padStart(4,"0");
+}
+function pixPayload(amount, txid){
+  const f = (id, v) => id + String(v.length).padStart(2,"0") + v;
+  const st = S.settings;
+  const mai = f("00","br.gov.bcb.pix") + f("01", pixKeyNorm());
+  let p = f("00","01") + f("26", mai) + f("52","0000") + f("53","986") + f("54", Number(amount).toFixed(2)) +
+          f("58","BR") + f("59", plain(st.pixName || st.name, 25) || "STUDIO") + f("60", plain(st.pixCity || "SAO JOAO DE MERITI", 15)) +
+          f("62", f("05", (String(txid||"").replace(/[^A-Za-z0-9]/g,"").slice(0,25)) || "***")) + "6304";
+  return p + crc16(p);
+}
+function showPix(b){
+  const code = pixPayload(b.deposit, b.id);
+  const st = S.settings, first = String(st.name).split(" ")[0];
+  const msg = `Oi ${first}! Segue o comprovante do sinal (${brl(b.deposit)}) do meu horário de ${b.serviceName}, ${fmtDate(b.date).toLowerCase()} às ${b.start}. Nome: ${b.clientName}`;
+  openModal(`<p class="eyebrow">Pague o sinal com Pix</p>
+    <h2 class="display" style="font-size:30px;margin:2px 0 4px">${brl(b.deposit)}</h2>
+    <p class="small muted">${esc(b.serviceName)} · ${esc(fmtDate(b.date))} às ${esc(b.start)}</p>
+    <div id="pixQr" style="background:#fff;padding:12px;border-radius:12px;width:max-content;max-width:100%;margin:16px auto"></div>
+    <label class="f">Pix copia e cola<textarea class="in" id="pixCode" readonly style="font-size:12px;min-height:76px">${esc(code)}</textarea></label>
+    <div class="stack" style="margin-top:12px">
+      <button class="btn block" data-copypix>Copiar código Pix</button>
+      <a class="btn soft block" href="${waLink(st.whatsapp, msg)}" target="_blank" rel="noopener">Já paguei · enviar comprovante</a>
+      <p class="small muted">Recebedor: ${esc(plain(st.pixName || st.name, 25))}. Seu horário fica reservado e vira <b>Confirmado</b> assim que a ${esc(first)} conferir o pagamento.</p>
+      <button class="btn ghost block" data-close>Fechar</button>
+    </div>`);
+  try { new QRCode(document.getElementById("pixQr"), {text:code, width:220, height:220, correctLevel:QRCode.CorrectLevel.M}); }
+  catch(_) { document.getElementById("pixQr").hidden = true; }
+}
+function depositOf(price){
+  const st = S.settings;
+  if (!pixReady()) return 0;
+  const pct = Math.min(100, Math.max(1, Number(st.depositPercent)||30));
+  return Math.round(Number(price)*pct)/100;
+}
+
+/* ---------------- ícones ---------------- */
+const IC = {
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+};
+
+/* ---------------- render ---------------- */
+function go(view){ S.view = view; window.scrollTo(0,0); render(); }
+function needLogin(next){ S.pendingView = next; S.authMode = "login"; go("auth"); }
+
+function render(){
+  const v = S.view;
+  let html = "";
+  if (v === "auth") html = vAuth();
+  else if (v === "adminLogin") html = S.isAdmin ? vAdmin() : vAdminLogin();
+  else if (v === "book") html = vBook();
+  else if (v === "mine") html = S.user ? vMine() : vAuth();
+  else if (v === "account") html = vAccount();
+  else if (v === "admin") html = S.isAdmin ? vAdmin() : vHome();
+  else html = vHome();
+  const keep = captureInputs();
+  $app.innerHTML = html;
+  restoreInputs(keep);
+  renderNav();
+}
+// preserva o que está sendo digitado quando chega atualização em tempo real
+function captureInputs(){
+  const m = {}; const a = document.activeElement;
+  $app.querySelectorAll("input[id],textarea[id],select[id]").forEach(el => {
+    if (el.type === "file") return;
+    m[el.id] = el.type === "checkbox" ? el.checked : el.value;
+  });
+  return {m, focus: a && a.id};
+}
+function restoreInputs({m, focus}){
+  Object.entries(m).forEach(([id,val]) => {
+    const el = document.getElementById(id);
+    if (!el || el.dataset.fresh) return;
+    if (el.type === "checkbox") el.checked = val; else el.value = val;
+  });
+  if (focus) { const el = document.getElementById(focus); if (el) el.focus(); }
+}
+
+function renderNav(){
+  if (S.view === "admin" || S.view === "auth" || S.view === "adminLogin") { $nav.hidden = true; return; }
+  $nav.hidden = false;
+  const items = [["home","Início",IC.home],["book","Agendar",IC.cal],["mine","Meus horários",IC.list],["account", S.isAdmin ? "Painel" : "Conta", S.isAdmin ? IC.eye : IC.user]];
+  $nav.innerHTML = `<div class="in-nav">${items.map(([k,l,i]) =>
+    `<button data-nav="${k}" class="${S.view===k?"on":""}" aria-label="${l}">${i}<span>${l}</span></button>`).join("")}</div>`;
+}
+
+function topBar(right){
+  return `<div class="top"><div class="brand">${esc(S.settings.name)}<small>${esc(S.settings.title)}</small></div>${right||""}</div>`;
+}
+
+/* ----- início / perfil da lash designer ----- */
+function avatarHtml(cls){
+  const st = S.settings;
+  return st.photo ? `<img class="avatar ${cls||""}" src="${esc(st.photo)}" alt="Foto de ${esc(st.name)}">`
+                  : `<div class="avatar ph ${cls||""}" aria-hidden="true">${esc((st.name||"A")[0])}</div>`;
+}
+function vHome(){
+  const st = S.settings;
+  const first = String(st.name||"").split(" ")[0], rest = String(st.name||"").split(" ").slice(1).join(" ");
+  const svcs = S.services.filter(s => s.active !== false);
+  const next = S.mine.find(b => b.status === "confirmado" && b.date >= ymd(new Date()));
+  return `<div class="wrap">
+    ${topBar(S.user ? "" : `<button class="btn ghost sm" data-act="login">Entrar</button>`)}
+    <section class="hero">
+      ${avatarHtml()}
+      <div><p class="eyebrow">${esc(st.title)}</p><h1>${esc(first)} <em>${esc(rest)}</em></h1></div>
+    </section>
+    <p class="bio">${esc(st.bio)}</p>
+    <div class="chips">
+      ${st.city ? `<span class="chip">📍 ${esc(st.city)}</span>` : ""}
+      ${st.instagram ? `<a class="chip" href="https://instagram.com/${esc(st.instagram)}" target="_blank" rel="noopener">@${esc(st.instagram)}</a>` : ""}
+      ${st.whatsapp ? `<a class="chip" href="${waLink(st.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>` : ""}
+    </div>
+    ${st.address ? `<p class="small muted" style="margin-top:10px">${esc(st.address)}</p>` : ""}
+
+    ${next ? `<div class="card" style="margin-top:20px;border-color:var(--accent)">
+      <p class="eyebrow">Seu próximo horário</p>
+      <p style="font-family:var(--display);font-size:22px;margin-top:4px">${esc(fmtDate(next.date))} · ${esc(next.start)}</p>
+      <p class="muted small">${esc(next.serviceName)}</p></div>` : ""}
+
+    <div class="row between" style="margin:28px 0 6px"><h2 class="display" style="font-size:24px">Procedimentos</h2><span class="small muted">${svcs.length} opções</span></div>
+    <div class="card" style="padding:4px 16px">
+      ${svcs.length ? svcs.map(s => `<button class="svc" data-pick="${esc(s.id)}">
+          <h3>${esc(s.name)}</h3><span class="price">${brl(s.price)}</span>
+          <span class="meta"><span class="dur">${fmtDur(s.duration)}</span>${s.desc ? " · "+esc(s.desc) : ""}</span>
+        </button>`).join("") : `<div class="empty" style="margin:12px 0">Os procedimentos aparecem aqui assim que a ${esc(first)} cadastrar no painel.</div>`}
+    </div>
+    <div style="margin-top:18px"><button class="btn block" data-nav="book">Agendar horário</button></div>
+    ${st.policy ? `<p class="small muted" style="margin-top:16px">${esc(st.policy)}</p>` : ""}
+    <p style="text-align:center;margin-top:36px"><button class="link small" style="color:var(--ink-2)" data-act="adminArea">Área da dona</button></p>
+  </div>`;
+}
+
+/* ----- login da dona ----- */
+function vAdminLogin(){
+  const first = S.adminFirst;
+  return `<div class="wrap" style="padding-top:12px">
+    <div class="top"><button class="link" data-nav="home">← Voltar</button></div>
+    <div style="margin:18px 0 22px"><p class="eyebrow">Área da dona</p>
+      <h1 class="display" style="font-size:30px">${first ? "Criar senha do painel" : "Entrar no painel"}</h1>
+      <p class="muted small">${first ? "Faça isso uma vez só. Depois é só entrar com usuário e senha." : "Agenda, horários, procedimentos e pagamentos do studio."}</p></div>
+    <form id="adminForm" class="stack card" novalidate>
+      <label class="f">Usuário<input class="in" id="ad_user" autocomplete="username" autocapitalize="off" value="${esc(CFG.adminUser||"")}"></label>
+      <label class="f">Senha<input class="in" id="ad_pass" type="password" autocomplete="${first?"new-password":"current-password"}" minlength="6"></label>
+      ${first ? `<label class="f">Repita a senha<input class="in" id="ad_pass2" type="password" autocomplete="new-password"></label>` : ""}
+      <p id="adErr" class="small" style="color:var(--bad)" hidden></p>
+      <button class="btn block" type="submit">${first ? "Criar senha e entrar" : "Entrar"}</button>
+    </form>
+    <p class="small" style="text-align:center;margin-top:16px">${first ? `<button class="link" data-act="adminLoginMode">Já tenho senha</button>` : `<button class="link" data-act="adminFirstMode">Primeiro acesso</button>`}</p>
+  </div>`;
+}
+async function submitAdmin(){
+  const user = val("ad_user").trim().toLowerCase(), pass = val("ad_pass");
+  const err = document.getElementById("adErr"); const fail = m => { err.textContent = m; err.hidden = false; };
+  err.hidden = true;
+  if (user !== String(CFG.adminUser||"ana").toLowerCase()) return fail("Usuário ou senha incorretos.");
+  if (pass.length < 6) return fail("A senha precisa ter pelo menos 6 caracteres.");
+  try {
+    if (S.adminFirst) {
+      if (pass !== val("ad_pass2")) return fail("As senhas não são iguais.");
+      if (S.user) await auth.signOut();
+      await auth.createUserWithEmailAndPassword(ADMIN_EMAIL, pass);
+      toast("Senha criada. Bem-vinda ao painel!");
+    } else {
+      if (S.user && !S.isAdmin) await auth.signOut();
+      await auth.signInWithEmailAndPassword(ADMIN_EMAIL, pass);
+    }
+    S.adminFirst = false; S.view = "admin";
+  } catch(e) {
+    if (e.code === "auth/email-already-in-use") return fail("A senha do painel já foi criada. Toque em “Já tenho senha”.");
+    fail(e.code === "auth/invalid-credential" || e.code === "auth/wrong-password" || e.code === "auth/user-not-found" ? "Usuário ou senha incorretos." : errMsg(e));
+  }
+}
+
+/* ----- login / cadastro ----- */
+function vAuth(){
+  const mode = S.authMode || "login";
+  const st = S.settings;
+  return `<div class="wrap" style="padding-top:12px">
+    <div class="top"><button class="link" data-nav="home">← Voltar</button></div>
+    <div style="text-align:center;margin:10px 0 22px">${avatarHtml().replace('class="avatar','style="margin:0 auto" class="avatar')}
+      <h1 class="display" style="font-size:28px;margin-top:12px">${mode==="signup"?"Criar conta":mode==="reset"?"Recuperar senha":"Entrar"}</h1>
+      <p class="muted small">${mode==="signup"?"Leva menos de um minuto.":mode==="reset"?"Enviamos um link para o seu e-mail.":"Acesse para agendar e ver seus horários."}</p>
+    </div>
+    <form id="authForm" class="stack" novalidate>
+      ${mode==="signup" ? `
+        <label class="f">Nome completo<input class="in" id="a_name" autocomplete="name" required></label>
+        <label class="f">WhatsApp<input class="in" id="a_phone" type="tel" inputmode="tel" placeholder="(21) 9 0000-0000" autocomplete="tel" required></label>` : ""}
+      <label class="f">E-mail<input class="in" id="a_email" type="email" autocomplete="email" required></label>
+      ${mode!=="reset" ? `<label class="f">Senha<input class="in" id="a_pass" type="password" minlength="6" autocomplete="${mode==="signup"?"new-password":"current-password"}" required></label>` : ""}
+      <p id="authErr" class="small" style="color:var(--bad)" hidden></p>
+      <button class="btn block" type="submit">${mode==="signup"?"Criar conta":mode==="reset"?"Enviar link":"Entrar"}</button>
+    </form>
+    <div class="stack" style="margin-top:18px;text-align:center">
+      ${mode==="login" ? `<p class="small">Primeira vez? <button class="link" data-auth="signup">Criar conta</button></p>
+                          <p class="small"><button class="link" data-auth="reset">Esqueci minha senha</button></p>`
+                       : `<p class="small">Já tem conta? <button class="link" data-auth="login">Entrar</button></p>`}
+    </div>
+  </div>`;
+}
+async function submitAuth(){
+  const mode = S.authMode || "login";
+  const email = document.getElementById("a_email").value.trim();
+  const passEl = document.getElementById("a_pass"), pass = passEl ? passEl.value : "";
+  const err = document.getElementById("authErr");
+  const fail = m => { err.textContent = m; err.hidden = false; };
+  err.hidden = true;
+  try {
+    if (mode === "reset") { await auth.sendPasswordResetEmail(email); toast("Link enviado. Confira seu e-mail."); S.authMode = "login"; render(); return; }
+    if (mode === "signup") {
+      const name = document.getElementById("a_name").value.trim();
+      const phone = document.getElementById("a_phone").value.trim();
+      if (name.length < 2) return fail("Digite seu nome.");
+      if (onlyDigits(phone).length < 10) return fail("Digite seu WhatsApp com DDD.");
+      const cred = await auth.createUserWithEmailAndPassword(email, pass);
+      await cred.user.updateProfile({displayName:name});
+      await db.doc("users/"+cred.user.uid).set({name, phone, email, createdAt:TS()});
+      try { await cred.user.sendEmailVerification(); } catch(_) {}
+      toast("Conta criada. Bem-vinda!");
+    } else {
+      await auth.signInWithEmailAndPassword(email, pass);
+    }
+  } catch(e) { fail(errMsg(e)); }
+}
+
+/* ----- agendamento ----- */
+function vBook(){
+  const B = S.book;
+  const svcs = S.services.filter(s => s.active !== false);
+  const steps = `<div class="steps">${[1,2,3].map(i=>`<span class="${B.step>=i?"on":""}"></span>`).join("")}</div>`;
+  let body = "";
+  if (B.step === 1) {
+    body = `<p class="eyebrow">Passo 1 de 3</p><h1 class="display" style="font-size:26px;margin:4px 0 14px">Escolha o procedimento</h1>
+      <div class="card" style="padding:4px 16px">${svcs.map(s => `<button class="svc ${B.service&&B.service.id===s.id?"sel":""}" data-pick="${esc(s.id)}">
+        <h3>${esc(s.name)}</h3><span class="price">${brl(s.price)}</span><span class="meta"><span class="dur">${fmtDur(s.duration)}</span>${s.desc?" · "+esc(s.desc):""}</span></button>`).join("") || `<div class="empty" style="margin:12px 0">Nenhum procedimento cadastrado ainda.</div>`}</div>`;
+  } else if (B.step === 2) {
+    const days = []; const base = new Date(); base.setHours(0,0,0,0);
+    for (let i = 0; i < (Number(S.settings.maxDays)||45); i++) { const d = new Date(base); d.setDate(base.getDate()+i); days.push(d); }
+    const slots = B.date ? computeSlots(B.date, B.service.duration, B.busy) : [];
+    body = `<p class="eyebrow">Passo 2 de 3 · ${esc(B.service.name)}</p><h1 class="display" style="font-size:26px;margin:4px 0 14px">Escolha dia e horário</h1>
+      <div class="days" role="listbox" aria-label="Dias">${days.map(d => { const s = ymd(d), open = !!dayOpen(s);
+        return `<button class="day ${B.date===s?"sel":""}" data-date="${s}" ${open?"":"disabled"}><small>${WD[d.getDay()]}</small><b>${d.getDate()}</b><small>${MES[d.getMonth()]}</small></button>`; }).join("")}</div>
+      ${!B.date ? `<div class="empty">Toque em um dia para ver os horários livres.</div>`
+        : B.loadingSlots ? `<div class="empty">Buscando horários…</div>`
+        : slots.length ? `<p class="small muted" style="margin:6px 0 10px">${esc(fmtDate(B.date))} · duração ${fmtDur(B.service.duration)}</p>
+            <div class="slots">${slots.map(t=>`<button class="slot ${B.time===t?"sel":""}" data-time="${t}">${t}</button>`).join("")}</div>`
+        : `<div class="empty">Sem horários livres neste dia. Tente outra data.</div>`}
+      <div class="row" style="margin-top:20px"><button class="btn ghost" data-step="1">Voltar</button><button class="btn grow" data-step="3" ${B.time?"":"disabled"}>Continuar</button></div>`;
+  } else {
+    const s = B.service, dep = depositOf(s.price), mp = dep > 0;
+    const end = fromMin(toMin(B.time) + s.duration);
+    body = `<p class="eyebrow">Passo 3 de 3</p><h1 class="display" style="font-size:26px;margin:4px 0 14px">Confirme e pague</h1>
+      <div class="card stack">
+        <dl class="sum">
+          <dt>Procedimento</dt><dd>${esc(s.name)}</dd>
+          <dt>Data</dt><dd>${esc(fmtDate(B.date))}</dd>
+          <dt>Horário</dt><dd>${B.time} às ${end}</dd>
+          <dt>Valor total</dt><dd>${brl(s.price)}</dd>
+          ${mp ? `<dt>Sinal agora (${Number(S.settings.depositPercent)||30}%)</dt><dd class="tot">${brl(dep)}</dd>
+                  <dt>Restante no dia</dt><dd>${brl(s.price - dep)}</dd>` : ""}
+        </dl>
+      </div>
+      ${mp ? `<p class="small muted" style="margin-top:12px">Na próxima tela aparece o <b>QR Code Pix</b> com o valor do sinal. Depois de pagar, envie o comprovante pelo WhatsApp e seu horário é confirmado.</p>`
+           : `<p class="small muted" style="margin-top:12px">O pagamento é feito no studio. A ${esc(String(S.settings.name).split(" ")[0])} confirma seu horário pelo WhatsApp.</p>`}
+      ${S.settings.policy ? `<p class="small muted" style="margin-top:8px">${esc(S.settings.policy)}</p>` : ""}
+      <div class="row" style="margin-top:20px"><button class="btn ghost" data-step="2">Voltar</button>
+        <button class="btn grow" data-act="confirmBook" id="btnConfirm">${mp ? "Reservar e pagar "+brl(dep)+" no Pix" : "Solicitar horário"}</button></div>`;
+  }
+  return `<div class="wrap">${topBar()}${steps}${body}</div>`;
+}
+
+async function confirmBooking(){
+  if (!S.user) return needLogin("book");
+  const B = S.book, s = B.service, st = S.settings;
+  const btn = document.getElementById("btnConfirm"); if (btn) { btn.disabled = true; btn.textContent = "Reservando…"; }
+  const mp = depositOf(s.price) > 0;
+  try {
+    // confere de novo se o horário continua livre
+    const fresh = (await db.collection("busy").where("date","==",B.date).get()).docs.map(d=>d.data());
+    if (!computeSlots(B.date, s.duration, fresh).includes(B.time)) {
+      S.book.busy = fresh; S.book.time = null; S.book.step = 2; render();
+      return toast("Esse horário acabou de ser reservado. Escolha outro.");
+    }
+    const ref = db.collection("bookings").doc();
+    const end = fromMin(toMin(B.time) + s.duration);
+    const p = S.profile || {};
+    const batch = db.batch();
+    batch.set(ref, {
+      uid:S.user.uid, clientName:p.name || S.user.displayName || "", clientPhone:p.phone || "", clientEmail:S.user.email,
+      serviceId:s.id, serviceName:s.name, duration:s.duration, price:Number(s.price), deposit:depositOf(s.price),
+      date:B.date, start:B.time, end, status:"aguardando_pagamento", paymentStatus:"pendente",
+      paymentMode: mp ? "pix" : "no_studio", holdUntil: null, createdAt:TS()
+    });
+    batch.set(db.doc("busy/"+ref.id), {uid:S.user.uid, date:B.date, start:B.time, end, hold:true, expiresAt: null});
+    await batch.commit();
+    S.book = {step:1, service:null, date:null, time:null, busy:[]};
+    go("mine");
+    if (mp) showPix({id:ref.id, deposit:depositOf(s.price), serviceName:s.name, date:B.date, start:B.time, clientName:p.name || S.user.displayName || ""});
+    else toast("Pedido enviado! Aguarde a confirmação.");
+  } catch(e) { toast(errMsg(e)); if (btn) { btn.disabled = false; btn.textContent = "Tentar de novo"; } }
+}
+/* ----- meus agendamentos ----- */
+function bkRow(b, actions){
+  const d = parseYmd(b.date);
+  return `<div class="bk"><div class="when"><small>${WD[d.getDay()]}</small><b>${d.getDate()}</b><small>${MES[d.getMonth()]}</small><div class="t">${esc(b.start)}</div></div>
+    <div class="stack" style="gap:6px;min-width:0"><div class="row between"><b>${esc(b.serviceName)}</b>${statusPill(b)}</div>
+    ${actions}</div></div>`;
+}
+function vMine(){
+  const today = ymd(new Date());
+  const up = S.mine.filter(b => b.date >= today && b.status !== "cancelado" && b.status !== "concluido").sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+  const past = S.mine.filter(b => !up.includes(b));
+  const st = S.settings;
+  const row = b => {
+    let a = `<p class="small muted">${brl(b.price)}${b.deposit ? " · sinal "+brl(b.deposit)+(b.paymentStatus==="pago"?" pago":"") : ""}</p>`;
+    if (b.status === "aguardando_pagamento" && b.paymentMode === "pix" && b.deposit > 0) a += `<div class="row"><button class="btn sm" data-pay="${b.id}">Ver Pix do sinal</button><button class="btn sm danger" data-cancel="${b.id}">Cancelar</button></div>`;
+    else if (holdExpired(b)) a += `<p class="small muted">O tempo para pagar acabou e o horário foi liberado. Faça um novo agendamento.</p>`;
+    else if (b.status === "confirmado" || b.status === "aguardando_pagamento") {
+      const hrs = (parseYmd(b.date).getTime() + toMin(b.start)*60000 - Date.now())/3600000;
+      a += hrs >= (Number(st.cancelHours)||24)
+        ? `<div class="row"><button class="btn sm danger" data-cancel="${b.id}">Cancelar</button></div>`
+        : `<p class="small muted">Para alterar, fale com a ${esc(String(st.name).split(" ")[0])} pelo <a href="${waLink(st.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>.</p>`;
+    }
+    return bkRow(b, a);
+  };
+  return `<div class="wrap">${topBar()}
+    <h1 class="display" style="font-size:26px;margin:10px 0 14px">Meus horários</h1>
+    <div class="card" style="padding:4px 16px">${up.length ? up.map(row).join("") : `<div class="empty" style="margin:12px 0">Você não tem horários marcados. <button class="link" data-nav="book">Agendar agora</button></div>`}</div>
+    ${past.length ? `<p class="eyebrow" style="margin:24px 0 8px">Histórico</p><div class="card" style="padding:4px 16px">${past.map(row).join("")}</div>` : ""}
+  </div>`;
+}
+function askCancel(id){
+  const b = S.mine.find(x => x.id === id) || S.adminBookings.find(x => x.id === id); if (!b) return;
+  const late = !S.isAdmin && b.paymentStatus === "pago";
+  openModal(`<h2 class="display" style="font-size:22px">Cancelar horário?</h2>
+    <p class="muted" style="margin:8px 0 16px">${esc(b.serviceName)} · ${esc(fmtDate(b.date))} às ${esc(b.start)}${b.clientName && S.isAdmin ? " · "+esc(b.clientName):""}</p>
+    ${late ? `<p class="small muted" style="margin-bottom:14px">${esc(S.settings.policy)}</p>` : ""}
+    <div class="row"><button class="btn ghost grow" data-close>Manter</button><button class="btn danger grow" data-doCancel="${b.id}">Cancelar horário</button></div>`);
+}
+async function doCancel(id){
+  closeModal();
+  try {
+    const batch = db.batch();
+    batch.update(db.doc("bookings/"+id), {status:"cancelado", canceledAt:Date.now()});
+    batch.delete(db.doc("busy/"+id));
+    await batch.commit();
+    toast("Horário cancelado.");
+  } catch(e) { toast(errMsg(e)); }
+}
+
+/* ----- conta ----- */
+function vAccount(){
+  if (!S.user) return `<div class="wrap">${topBar()}<div class="card stack" style="margin-top:16px;text-align:center">
+    <h1 class="display" style="font-size:24px">Sua conta</h1><p class="muted">Entre para agendar e acompanhar seus horários.</p>
+    <button class="btn block" data-act="login">Entrar</button><button class="btn ghost block" data-act="signup">Criar conta</button></div></div>`;
+  const p = S.profile || {};
+  return `<div class="wrap">${topBar()}
+    ${S.isAdmin ? `<div class="card stack" style="margin:12px 0;border-color:var(--accent)"><p class="eyebrow">Você é a administradora</p><button class="btn block" data-nav="admin">Abrir painel do studio</button></div>` : ""}
+    <h1 class="display" style="font-size:26px;margin:10px 0 14px">Minha conta</h1>
+    <form id="accForm" class="card stack">
+      <label class="f">Nome<input class="in" id="c_name" value="${esc(p.name||S.user.displayName||"")}"></label>
+      <label class="f">WhatsApp<input class="in" id="c_phone" type="tel" value="${esc(p.phone||"")}"></label>
+      <label class="f">E-mail<input class="in" value="${esc(S.user.email)}" disabled></label>
+      <button class="btn" type="submit">Salvar</button>
+    </form>
+    <button class="btn ghost block" style="margin-top:14px" data-act="logout">Sair</button>
+  </div>`;
+}
+
+/* ================= PAINEL ADMIN ================= */
+function vAdmin(){
+  const pend = S.adminBookings.filter(b => b.status === "aguardando_pagamento").length;
+  const tabs = [["agenda","Agenda"],["pagamento","Pagamentos"+(pend?` (${pend})`:"")],["horarios","Horários"],["servicos","Procedimentos"],["perfil","Perfil e senha"],["clientes","Clientes"]];
+  let body = "";
+  const t = S.adminTab;
+  if (t === "agenda") body = aAgenda();
+  else if (t === "servicos") body = aServices();
+  else if (t === "horarios") body = aHours();
+  else if (t === "perfil") body = aProfile();
+  else if (t === "pagamento") body = aPayList() + aPayment();
+  else body = aClients();
+  return `<div class="wrap wide">
+    <div class="top">${`<div class="brand">Painel do studio<small>${esc(S.settings.name)}</small></div>`}
+      <div class="row"><button class="btn ghost sm" data-nav="home">Ver app da cliente</button><button class="btn ghost sm" data-act="logout">Sair</button></div></div>
+    <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button class="tab ${t===k?"on":""}" data-tab="${k}" role="tab">${l}</button>`).join("")}</div>
+    ${body}
+  </div>`;
+}
+
+function aAgenda(){
+  const today = ymd(new Date());
+  const in7 = new Date(); in7.setDate(in7.getDate()+7); const w = ymd(in7);
+  const live = S.adminBookings.filter(b => b.status !== "cancelado" && !holdExpired(b));
+  const todays = live.filter(b => b.date === today);
+  const week = live.filter(b => b.date <= w && b.status === "confirmado");
+  const pend = live.filter(b => b.status === "aguardando_pagamento");
+  const deps = live.filter(b => b.paymentStatus === "pago").reduce((s,b) => s + (Number(b.paidAmount ?? b.deposit)||0), 0);
+  const blocks = S.adminBusy.filter(b => b.blocked);
+  const rows = [...S.adminBookings.map(b=>({...b,kind:"b"})), ...blocks.map(b=>({...b,kind:"x"}))]
+    .filter(b => S.adminShowCanceled || b.kind==="x" || (b.status !== "cancelado" && !holdExpired(b)))
+    .sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+  const groups = {}; rows.forEach(r => (groups[r.date] = groups[r.date] || []).push(r));
+  const item = b => {
+    if (b.kind === "x") return `<div class="bk"><div class="when"><div class="t">${esc(b.start)}</div><small>${esc(b.end)}</small></div>
+      <div class="row between"><div><b>Horário bloqueado</b><p class="small muted">${esc(b.note||"")}</p></div><button class="btn sm ghost" data-unblock="${b.id}">Liberar</button></div></div>`;
+    const acts = [];
+    if (b.status === "aguardando_pagamento" && !holdExpired(b)) acts.push(`<button class="btn sm soft" data-markpaid="${b.id}">Confirmar (recebi)</button>`);
+    if (b.status === "confirmado") acts.push(`<button class="btn sm soft" data-done="${b.id}">Concluir</button>`);
+    if (b.status !== "cancelado" && b.status !== "concluido") acts.push(`<button class="btn sm danger" data-cancel="${b.id}">Cancelar</button>`);
+    if (b.clientPhone) acts.push(`<a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(b.clientPhone, `Oi ${String(b.clientName).split(" ")[0]}! Passando para lembrar do seu horário de ${b.serviceName} ${fmtDate(b.date).toLowerCase()} às ${b.start}. 💕`)}">WhatsApp</a>`);
+    return `<div class="bk"><div class="when"><div class="t">${esc(b.start)}</div><small>${esc(b.end)}</small></div>
+      <div class="stack" style="gap:6px;min-width:0"><div class="row between"><b>${esc(b.clientName||"Cliente")}</b>${statusPill(b)}</div>
+      <p class="small muted">${esc(b.serviceName)} · ${brl(b.price)}${b.deposit?` · sinal ${brl(b.deposit)} ${b.paymentStatus==="pago"?"pago":"pendente"}`:""}${b.clientPhone?` · ${esc(b.clientPhone)}`:""}</p>
+      <div class="row">${acts.join("")}</div></div></div>`;
+  };
+  return `<div class="stats">
+      <div class="stat"><span class="eyebrow">Hoje</span><b>${todays.length}</b><span class="small muted">atendimentos</span></div>
+      <div class="stat"><span class="eyebrow">Próximos 7 dias</span><b>${week.length}</b><span class="small muted">confirmados</span></div>
+      <div class="stat"><span class="eyebrow">Aguardando</span><b>${pend.length}</b><span class="small muted">pagamento</span></div>
+      <div class="stat"><span class="eyebrow">Sinais recebidos</span><b>${brl(deps)}</b><span class="small muted">agenda futura</span></div>
+    </div>
+    <div class="grid2">
+      <div class="card" style="padding:4px 16px 16px">
+        <div class="row between" style="padding-top:12px"><h2 class="display" style="font-size:22px">Próximos horários</h2>
+          <label class="toggle small"><input type="checkbox" id="showCanceled" ${S.adminShowCanceled?"checked":""}> mostrar cancelados</label></div>
+        ${Object.keys(groups).length ? Object.entries(groups).map(([d,list]) => `<div class="daygroup"><h3>${esc(fmtDate(d))}${d===today?" · hoje":""}</h3>${list.map(item).join("")}</div>`).join("")
+          : `<div class="empty" style="margin-top:12px">Nenhum horário marcado ainda. Quando uma cliente agendar, aparece aqui na hora.</div>`}
+      </div>
+      <div class="stack">
+        <form id="blockForm" class="card stack">
+          <h2 class="display" style="font-size:20px">Bloquear horário</h2>
+          <p class="small muted">Para compromissos, almoço ou atendimento marcado por fora.</p>
+          <label class="f">Dia<input class="in" type="date" id="bl_date" min="${today}" required></label>
+          <div class="row"><label class="f grow">Das<input class="in" type="time" id="bl_start" required></label><label class="f grow">Até<input class="in" type="time" id="bl_end" required></label></div>
+          <label class="f">Observação<input class="in" id="bl_note" placeholder="Ex.: curso, consulta"></label>
+          <button class="btn" type="submit">Bloquear</button>
+        </form>
+        <div class="card stack">
+          <h2 class="display" style="font-size:20px">Histórico</h2>
+          <button class="btn ghost sm" data-act="loadPast">${S.pastBookings.length ? "Atualizar" : "Carregar últimos 60 atendimentos"}</button>
+          ${S.pastBookings.length ? `<div class="scroll-x"><table class="tbl"><tr><th>Data</th><th>Cliente</th><th>Procedimento</th><th>Status</th></tr>
+            ${S.pastBookings.map(b=>`<tr><td>${esc(b.date.split("-").reverse().join("/"))}</td><td>${esc(b.clientName)}</td><td>${esc(b.serviceName)}</td><td>${statusPill(b)}</td></tr>`).join("")}</table></div>` : ""}
+        </div>
+      </div>
+    </div>`;
+}
+
+function aServices(){
+  const list = S.services;
+  const ed = S.editSvc;
+  return `<div class="grid2">
+    <div class="card" style="padding:4px 16px 16px">
+      <div class="row between" style="padding:12px 0"><h2 class="display" style="font-size:22px">Procedimentos</h2><button class="btn sm" data-act="newSvc">Novo</button></div>
+      ${list.length ? list.map(s=>`<div class="bk" style="grid-template-columns:1fr auto"><div><b>${esc(s.name)}</b> ${s.active===false?`<span class="pill p-mute">oculto</span>`:""}
+          <p class="small muted">${fmtDur(s.duration)} · ${brl(s.price)}${s.desc?" · "+esc(s.desc):""}</p></div>
+          <button class="btn sm ghost" data-editsvc="${s.id}">Editar</button></div>`).join("")
+        : `<div class="empty">Nenhum procedimento ainda.<br><br><button class="btn sm soft" data-act="seedSvc">Carregar lista de exemplo</button><p class="small" style="margin-top:8px">Os valores de exemplo são sugestões: revise preço e duração de cada um.</p></div>`}
+    </div>
+    ${ed ? `<form id="svcForm" class="card stack">
+      <h2 class="display" style="font-size:20px">${ed.id ? "Editar procedimento" : "Novo procedimento"}</h2>
+      <label class="f">Nome<input class="in" id="s_name" data-fresh="1" value="${esc(ed.name||"")}" required></label>
+      <div class="row"><label class="f grow">Preço (R$)<input class="in" id="s_price" data-fresh="1" type="number" min="0" step="0.01" value="${esc(ed.price??"")}" required></label>
+      <label class="f grow">Duração (min)<input class="in" id="s_dur" data-fresh="1" type="number" min="10" step="5" value="${esc(ed.duration??60)}" required></label></div>
+      <label class="f">Descrição<textarea class="in" id="s_desc" data-fresh="1">${esc(ed.desc||"")}</textarea></label>
+      <label class="f">Ordem na lista<input class="in" id="s_order" data-fresh="1" type="number" value="${esc(ed.order ?? list.length+1)}"></label>
+      <label class="toggle"><input type="checkbox" id="s_active" data-fresh="1" ${ed.active===false?"":"checked"}> Visível para as clientes</label>
+      <div class="row"><button class="btn grow" type="submit">Salvar</button><button class="btn ghost" type="button" data-act="closeSvc">Fechar</button>
+        ${ed.id ? `<button class="btn danger" type="button" data-delsvc="${ed.id}">Excluir</button>` : ""}</div>
+    </form>` : `<div class="card"><p class="muted">Escolha um procedimento para editar ou crie um novo. O preço e a duração definem o sinal e os horários livres.</p></div>`}
+  </div>`;
+}
+
+function aHours(){
+  const h = S.settings.hours, st = S.settings;
+  return `<form id="hoursForm" class="grid2">
+    <div class="card stack">
+      <h2 class="display" style="font-size:22px">Dias e horários de atendimento</h2>
+      <div class="hours">
+        ${[1,2,3,4,5,6,0].map(d=>`<label class="toggle"><input type="checkbox" id="h_on_${d}" ${h[d].on?"checked":""}> ${WD_FULL[d]}</label>
+          <input class="in" type="time" id="h_open_${d}" value="${esc(h[d].open)}" aria-label="Abre ${WD_FULL[d]}">
+          <input class="in" type="time" id="h_close_${d}" value="${esc(h[d].close)}" aria-label="Fecha ${WD_FULL[d]}">`).join("")}
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card stack">
+        <h2 class="display" style="font-size:20px">Regras da agenda</h2>
+        <label class="f">Intervalo entre horários (min)<select class="in" id="r_interval">${[15,20,30,45,60].map(n=>`<option ${Number(st.interval)===n?"selected":""}>${n}</option>`).join("")}</select></label>
+        <label class="f">Antecedência mínima para agendar (horas)<input class="in" type="number" min="0" id="r_lead" value="${esc(st.minLeadHours)}"></label>
+        <label class="f">Cliente pode cancelar até (horas antes)<input class="in" type="number" min="0" id="r_cancel" value="${esc(st.cancelHours)}"></label>
+        <label class="f">Agenda aberta para os próximos (dias)<input class="in" type="number" min="7" max="120" id="r_max" value="${esc(st.maxDays)}"></label>
+      </div>
+      <div class="card stack">
+        <h2 class="display" style="font-size:20px">Abrir dia extra</h2>
+        <p class="small muted">Para atender num dia que normalmente é folga (ex.: um domingo antes de feriado).</p>
+        <div class="row"><input class="in grow" type="date" id="ex_date" min="${ymd(new Date())}" aria-label="Dia extra"><input class="in" style="width:110px" type="time" id="ex_open" value="09:00" aria-label="Abre"><input class="in" style="width:110px" type="time" id="ex_close" value="17:00" aria-label="Fecha"><button class="btn sm soft" type="button" data-act="addExtra">Abrir</button></div>
+        <div class="chips">${Object.entries(st.extraDays||{}).sort().map(([d,x])=>`<span class="chip">${esc(d.split("-").reverse().join("/"))} ${esc(x.open)}–${esc(x.close)} <button class="link" type="button" data-delextra="${d}" aria-label="Remover">×</button></span>`).join("") || `<span class="small muted">Nenhum dia extra.</span>`}</div>
+      </div>
+      <div class="card stack">
+        <h2 class="display" style="font-size:20px">Folgas e feriados</h2>
+        <div class="row"><input class="in grow" type="date" id="off_add" min="${ymd(new Date())}"><button class="btn sm soft" type="button" data-act="addOff">Adicionar</button></div>
+        <div class="chips">${(st.daysOff||[]).sort().map(d=>`<span class="chip">${esc(d.split("-").reverse().join("/"))} <button class="link" type="button" data-deloff="${d}" aria-label="Remover">×</button></span>`).join("") || `<span class="small muted">Nenhuma folga marcada.</span>`}</div>
+      </div>
+      <button class="btn" type="submit">Salvar horários</button>
+    </div>
+  </form>`;
+}
+
+function aProfile(){
+  const st = S.settings;
+  return `<form id="profForm" class="grid2">
+    <div class="card stack">
+      <h2 class="display" style="font-size:22px">Perfil da lash designer</h2>
+      <div class="row">${avatarHtml()}<div class="stack" style="gap:6px"><label class="btn sm soft" style="cursor:pointer">Trocar foto<input type="file" id="p_photo" accept="image/*" hidden></label>
+        ${st.photo?`<button type="button" class="link small" data-act="rmPhoto">Remover foto</button>`:""}</div></div>
+      <label class="f">Nome<input class="in" id="p_name" value="${esc(st.name)}"></label>
+      <label class="f">Título<input class="in" id="p_title" value="${esc(st.title)}"></label>
+      <label class="f">Bio<textarea class="in" id="p_bio">${esc(st.bio)}</textarea></label>
+    </div>
+    <div class="stack">
+      <div class="card stack">
+        <h2 class="display" style="font-size:20px">Contato e endereço</h2>
+        <label class="f">Cidade<input class="in" id="p_city" value="${esc(st.city)}"></label>
+        <label class="f">Endereço (aparece para as clientes)<input class="in" id="p_addr" value="${esc(st.address)}" placeholder="Rua, número, ponto de referência"></label>
+        <label class="f">Instagram (sem @)<input class="in" id="p_insta" value="${esc(st.instagram)}"></label>
+        <label class="f">WhatsApp com DDD<input class="in" id="p_wa" value="${esc(st.whatsapp)}"></label>
+        <label class="f">Política de agendamento<textarea class="in" id="p_policy">${esc(st.policy)}</textarea></label>
+      </div>
+      <button class="btn" type="submit">Salvar perfil</button>
+    </div>
+  </form>
+  <form id="pwForm" class="card stack" style="margin-top:16px;max-width:520px">
+    <h2 class="display" style="font-size:20px">Senha do painel</h2>
+    <p class="small muted">Usuário: <b>${esc(CFG.adminUser)}</b>. Mínimo de 6 caracteres.</p>
+    <label class="f">Nova senha<input class="in" type="password" id="pw1" autocomplete="new-password"></label>
+    <label class="f">Repita a nova senha<input class="in" type="password" id="pw2" autocomplete="new-password"></label>
+    <button class="btn" type="submit">Trocar senha</button>
+  </form>`;
+}
+
+function aPayList(){
+  const pend = S.adminBookings.filter(b => b.status === "aguardando_pagamento").sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+  const paid = S.adminBookings.filter(b => b.paymentStatus === "pago" && b.status !== "cancelado").sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+  const total = paid.reduce((s,b)=>s+(Number(b.deposit)||0),0);
+  const line = (b, acts) => `<div class="bk" style="grid-template-columns:1fr"><div class="stack" style="gap:6px;min-width:0">
+      <div class="row between"><b>${esc(b.clientName||"Cliente")}</b><span class="display" style="font-size:20px">${brl(b.deposit||0)}</span></div>
+      <p class="small muted">${esc(b.serviceName)} · ${esc(fmtDate(b.date))} às ${esc(b.start)}${b.clientPhone?" · "+esc(b.clientPhone):""}</p>${acts}</div></div>`;
+  return `<div class="grid2" style="margin-bottom:16px">
+    <div class="card" style="padding:4px 16px 16px">
+      <div class="row between" style="padding-top:12px"><h2 class="display" style="font-size:22px">Aguardando confirmação</h2><span class="pill p-warn">${pend.length}</span></div>
+      <p class="small muted" style="margin:4px 0 6px">Confira no app do banco se o Pix caiu e confirme.</p>
+      ${pend.length ? pend.map(b => line(b, `<div class="row"><button class="btn sm" data-markpaid="${b.id}">Confirmar (recebi)</button>
+          ${b.clientPhone?`<a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(b.clientPhone, `Oi ${String(b.clientName).split(" ")[0]}! Ainda não identifiquei o Pix do sinal (${brl(b.deposit)}) do seu horário de ${fmtDate(b.date).toLowerCase()} às ${b.start}. Consegue me mandar o comprovante?`)}">Cobrar no WhatsApp</a>`:""}
+          <button class="btn sm danger" data-cancel="${b.id}">Cancelar</button></div>`)).join("")
+        : `<div class="empty" style="margin-top:8px">Nenhum pagamento pendente.</div>`}
+    </div>
+    <div class="card" style="padding:4px 16px 16px">
+      <div class="row between" style="padding-top:12px"><h2 class="display" style="font-size:22px">Sinais recebidos</h2><span class="display" style="font-size:20px">${brl(total)}</span></div>
+      <p class="small muted" style="margin:4px 0 6px">Horários futuros já pagos.</p>
+      ${paid.length ? paid.map(b => line(b, `<span class="pill p-ok" style="width:max-content">Pago${b.paidManually?" · confirmado por você":""}</span>`)).join("") : `<div class="empty" style="margin-top:8px">Nenhum sinal recebido ainda.</div>`}
+    </div>
+  </div>`;
+}
+function aPayment(){
+  const st = S.settings;
+  const types = [["telefone","Celular"],["cpf","CPF"],["cnpj","CNPJ"],["email","E-mail"],["aleatoria","Chave aleatória"]];
+  return `<form id="payForm" class="grid2">
+    <div class="card stack">
+      <h2 class="display" style="font-size:22px">Pagamento do sinal</h2>
+      <label class="toggle"><input type="radio" name="pm" id="pm_pix" ${st.paymentMode==="pix"?"checked":""}> Cobrar sinal no Pix (QR Code automático)</label>
+      <label class="toggle"><input type="radio" name="pm" id="pm_local" ${st.paymentMode!=="pix"?"checked":""}> Sem sinal (cliente paga tudo no studio)</label>
+      <div class="row"><label class="f" style="flex:0 0 150px">Tipo de chave<select class="in" id="pix_type">${types.map(([k,l])=>`<option value="${k}" ${st.pixKeyType===k?"selected":""}>${l}</option>`).join("")}</select></label>
+        <label class="f grow">Chave Pix<input class="in" id="pix_key" value="${esc(st.pixKey)}" placeholder="Ex.: 21986547075"></label></div>
+      <label class="f">Nome do recebedor (como aparece no banco)<input class="in" id="pix_name" maxlength="25" value="${esc(st.pixName)}" placeholder="ANA OLIVEIRA"></label>
+      <label class="f">Cidade do recebedor<input class="in" id="pix_city" maxlength="15" value="${esc(st.pixCity)}" placeholder="SAO JOAO DE MERITI"></label>
+      <label class="f">Sinal (% do valor)<input class="in" type="number" min="1" max="100" id="pay_pct" value="${esc(st.depositPercent)}"></label>
+      <button class="btn" type="submit">Salvar</button>
+    </div>
+    <div class="card stack">
+      <h2 class="display" style="font-size:20px">Como funciona</h2>
+      <p class="small muted">A cliente escolhe o horário e o app mostra um QR Code Pix com o valor exato do sinal, direto para a sua chave. Não tem taxa nem intermediário: o dinheiro cai na hora na sua conta.</p>
+      <p class="small muted">Ela envia o comprovante pelo WhatsApp com um toque. Você confere no banco e toca em <b>Confirmar (recebi)</b> na agenda.</p>
+      <p class="small muted">Se ela não pagar, cancele o horário na agenda para liberar a vaga.</p>
+      ${pixReady() ? `<button class="btn soft" type="button" data-act="testPix">Ver como a cliente vê (Pix de teste R$ 1,00)</button>` : `<p class="small" style="color:var(--warn)">Cadastre a chave Pix para ativar a cobrança do sinal.</p>`}
+    </div>
+  </form>`;
+}
+
+function aClients(){
+  const counts = {}; S.adminBookings.forEach(b => counts[b.uid] = (counts[b.uid]||0)+1);
+  return `<div class="card"><div class="row between" style="margin-bottom:8px"><h2 class="display" style="font-size:22px">Clientes</h2><span class="small muted">${S.adminUsers.length} cadastradas</span></div>
+    <div class="scroll-x"><table class="tbl"><tr><th>Nome</th><th>WhatsApp</th><th>E-mail</th><th>Próximos</th><th></th></tr>
+    ${S.adminUsers.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(u.phone)}</td><td>${esc(u.email)}</td><td>${counts[u.id]||0}</td>
+      <td>${u.phone?`<a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(u.phone)}">WhatsApp</a>`:""}</td></tr>`).join("") || `<tr><td colspan="5" class="muted">Ainda não há clientes cadastradas.</td></tr>`}
+    </table></div></div>`;
+}
+
+/* ---------------- ações admin ---------------- */
+async function saveSettings(patch, msg){
+  try { await db.doc("settings/studio").set(patch, {merge:true}); toast(msg||"Salvo."); }
+  catch(e) { toast(errMsg(e)); }
+}
+async function saveSettingsReplace(field, value, msg){
+  try { await db.doc("settings/studio").update({[field]: value}); toast(msg); }
+  catch(e) { if (e.code === "not-found") return saveSettings({[field]: value}, msg); toast(errMsg(e)); }
+}
+const val = id => (document.getElementById(id)||{}).value;
+const num = id => Number(val(id));
+
+async function resizeImage(file){
+  const url = URL.createObjectURL(file);
+  const img = await new Promise((res,rej)=>{ const i = new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=url; });
+  const size = 480, c = document.createElement("canvas"); c.width = c.height = size;
+  const s = Math.min(img.width, img.height);
+  c.getContext("2d").drawImage(img, (img.width-s)/2, (img.height-s)/2, s, s, 0, 0, size, size);
+  URL.revokeObjectURL(url);
+  return c.toDataURL("image/jpeg", 0.82);
+}
+
+/* ---------------- modal ---------------- */
+function openModal(html){ $modal.innerHTML = `<div class="sheet" role="dialog" aria-modal="true">${html}</div>`; $modal.hidden = false; }
+function closeModal(){ $modal.hidden = true; $modal.innerHTML = ""; }
+$modal.addEventListener("click", e => { if (e.target === $modal || e.target.closest("[data-close]")) closeModal();
+  const c = e.target.closest("[data-doCancel]"); if (c) doCancel(c.getAttribute("data-doCancel")); });
+
+/* ---------------- eventos ---------------- */
+document.addEventListener("click", async e => {
+  const t = e.target.closest("button,[data-nav]"); if (!t) return;
+  const d = t.dataset;
+  if (d.nav) {
+    if ((d.nav === "mine") && !S.user) return needLogin("mine");
+    if (d.nav === "account" && S.isAdmin) return go("admin");
+    if (d.nav === "book" && S.book.step === 3 && !S.book.service) S.book.step = 1;
+    return go(d.nav);
+  }
+  if (d.pick) {
+    const s = S.services.find(x => x.id === d.pick); if (!s) return;
+    S.book = {step:2, service:s, date:null, time:null, busy:[]};
+    if (!S.user) return needLogin("book");
+    return go("book");
+  }
+  if (d.date) { S.book.date = d.date; S.book.time = null; render(); return loadBusy(d.date); }
+  if (d.time) { S.book.time = d.time; return render(); }
+  if (d.step) { const n = Number(d.step); if (n === 3 && !S.user) return needLogin("book"); S.book.step = n; return go("book"); }
+  if (d.auth) { S.authMode = d.auth; return render(); }
+  if (d.pay) { const b = S.mine.find(x => x.id === d.pay); if (b) showPix(b); return; }
+  if (d.copypix !== undefined) { const el = document.getElementById("pixCode"); try { await navigator.clipboard.writeText(el.value); toast("Código Pix copiado."); } catch(_) { el.select(); document.execCommand("copy"); toast("Código Pix copiado."); } return; }
+  if (d.cancel) return askCancel(d.cancel);
+  if (d.tab) { S.adminTab = d.tab; S.editSvc = null; return render(); }
+  if (d.editsvc) { S.editSvc = {...S.services.find(s => s.id === d.editsvc)}; return render(); }
+  if (d.delsvc) { try { await db.doc("services/"+d.delsvc).delete(); S.editSvc = null; toast("Procedimento excluído."); } catch(err){ toast(errMsg(err)); } return; }
+  if (d.markpaid) { try { const b = db.batch(); b.update(db.doc("bookings/"+d.markpaid), {status:"confirmado", paymentStatus:"pago", paidManually:true, holdUntil:null}); b.set(db.doc("busy/"+d.markpaid), {hold:false, expiresAt:null}, {merge:true}); await b.commit(); toast("Horário confirmado."); } catch(err){ toast(errMsg(err)); } return; }
+  if (d.done) { try { await db.doc("bookings/"+d.done).update({status:"concluido"}); toast("Atendimento concluído."); } catch(err){ toast(errMsg(err)); } return; }
+  if (d.unblock) { try { await db.doc("busy/"+d.unblock).delete(); toast("Horário liberado."); } catch(err){ toast(errMsg(err)); } return; }
+  if (d.delextra) { const x = {...(S.settings.extraDays||{})}; delete x[d.delextra]; return saveSettingsReplace("extraDays", x, "Dia extra removido."); }
+  if (d.deloff) { return saveSettings({daysOff:(S.settings.daysOff||[]).filter(x => x !== d.deloff)}, "Folga removida."); }
+  switch (d.act) {
+    case "login": S.authMode = "login"; return go("auth");
+    case "signup": S.authMode = "signup"; return go("auth");
+    case "logout": await auth.signOut(); return go("home");
+    case "confirmBook": return confirmBooking();
+    case "newSvc": S.editSvc = {}; return render();
+    case "closeSvc": S.editSvc = null; return render();
+    case "seedSvc": {
+      try { const b = db.batch(); SAMPLE_SERVICES.forEach(s => b.set(db.collection("services").doc(), {...s, active:true})); await b.commit(); toast("Lista carregada. Revise os preços."); }
+      catch(err){ toast(errMsg(err)); } return;
+    }
+    case "addOff": { const v = val("off_add"); if (!v) return toast("Escolha uma data."); return saveSettings({daysOff:[...new Set([...(S.settings.daysOff||[]), v])]}, "Folga adicionada."); }
+    case "addExtra": {
+      const dt = val("ex_date"), o = val("ex_open"), c = val("ex_close");
+      if (!dt || !o || !c || toMin(c) <= toMin(o)) return toast("Confira o dia e os horários.");
+      return saveSettingsReplace("extraDays", {...(S.settings.extraDays||{}), [dt]:{open:o, close:c}}, "Dia extra aberto.");
+    }
+    case "adminArea": S.adminFirst = false; return go(S.isAdmin ? "admin" : "adminLogin");
+    case "adminFirstMode": S.adminFirst = true; return render();
+    case "adminLoginMode": S.adminFirst = false; return render();
+    case "testPix": return showPix({id:"TESTE", deposit:1, serviceName:"Teste", date:ymd(new Date()), start:"10:00", clientName:"Teste"});
+    case "rmPhoto": return saveSettings({photo:""}, "Foto removida.");
+    case "loadPast": {
+      try { const q = await db.collection("bookings").where("date","<",ymd(new Date())).orderBy("date","desc").limit(60).get();
+        S.pastBookings = q.docs.map(x => ({id:x.id, ...x.data()})); render(); } catch(err){ toast(errMsg(err)); } return;
+    }
+  }
+});
+
+document.addEventListener("change", async e => {
+  if (e.target.id === "showCanceled") { S.adminShowCanceled = e.target.checked; render(); }
+  if (e.target.id === "p_photo" && e.target.files[0]) {
+    try { const data = await resizeImage(e.target.files[0]); await saveSettings({photo:data}, "Foto atualizada."); }
+    catch(err){ toast("Não consegui ler essa imagem. Tente outra."); }
+  }
+});
+
+document.addEventListener("submit", async e => {
+  e.preventDefault();
+  const id = e.target.id;
+  if (id === "authForm") return submitAuth();
+  if (id === "accForm") {
+    try { await db.doc("users/"+S.user.uid).set({name:val("c_name").trim(), phone:val("c_phone").trim(), email:S.user.email}, {merge:true}); toast("Dados salvos."); }
+    catch(err){ toast(errMsg(err)); } return;
+  }
+  if (id === "svcForm") {
+    const data = {name:val("s_name").trim(), price:num("s_price"), duration:num("s_dur"), desc:val("s_desc").trim(), order:num("s_order")||0, active:document.getElementById("s_active").checked};
+    if (!data.name || !(data.duration > 0)) return toast("Preencha nome e duração.");
+    try { if (S.editSvc.id) await db.doc("services/"+S.editSvc.id).set(data, {merge:true}); else await db.collection("services").add(data);
+      S.editSvc = null; toast("Procedimento salvo."); render(); } catch(err){ toast(errMsg(err)); }
+    return;
+  }
+  if (id === "hoursForm") {
+    const hours = {};
+    for (let d = 0; d < 7; d++) {
+      const o = val("h_open_"+d), c = val("h_close_"+d);
+      if (toMin(c) <= toMin(o) && document.getElementById("h_on_"+d).checked) return toast(`${WD_FULL[d]}: o fechamento precisa ser depois da abertura.`);
+      hours[d] = {on:document.getElementById("h_on_"+d).checked, open:o, close:c};
+    }
+    return saveSettings({hours, interval:num("r_interval"), minLeadHours:num("r_lead"), cancelHours:num("r_cancel"), maxDays:num("r_max")}, "Horários salvos.");
+  }
+  if (id === "profForm") {
+    return saveSettings({name:val("p_name").trim(), title:val("p_title").trim(), bio:val("p_bio"), city:val("p_city").trim(), address:val("p_addr").trim(),
+      instagram:val("p_insta").trim().replace(/^@/,""), whatsapp:onlyDigits(val("p_wa")), policy:val("p_policy")}, "Perfil salvo.");
+  }
+  if (id === "adminForm") return submitAdmin();
+  if (id === "pwForm") {
+    const a = val("pw1"), b = val("pw2");
+    if (a.length < 6) return toast("A senha precisa ter pelo menos 6 caracteres.");
+    if (a !== b) return toast("As senhas não são iguais.");
+    try { await S.user.updatePassword(a); document.getElementById("pw1").value = document.getElementById("pw2").value = ""; toast("Senha trocada."); }
+    catch(err){ toast(err.code === "auth/requires-recent-login" ? "Por segurança, saia e entre de novo antes de trocar a senha." : errMsg(err)); }
+    return;
+  }
+  if (id === "payForm") {
+    const usePix = document.getElementById("pm_pix").checked, key = val("pix_key").trim();
+    if (usePix && !key) return toast("Digite a chave Pix.");
+    return saveSettings({paymentMode: usePix ? "pix" : "no_studio", pixKey:key, pixKeyType:val("pix_type"),
+      pixName:plain(val("pix_name"),25), pixCity:plain(val("pix_city"),15),
+      depositPercent:Math.min(100,Math.max(1,num("pay_pct")||30))}, "Pagamento salvo.");
+  }
+  if (id === "blockForm") {
+    const date = val("bl_date"), start = val("bl_start"), end = val("bl_end");
+    if (!date || !start || !end || toMin(end) <= toMin(start)) return toast("Confira o dia e os horários.");
+    try { await db.collection("busy").add({date, start, end, blocked:true, hold:false, note:val("bl_note").trim(), uid:S.user.uid}); toast("Horário bloqueado.");
+      ["bl_date","bl_start","bl_end","bl_note"].forEach(i => document.getElementById(i).value = ""); } catch(err){ toast(errMsg(err)); }
+  }
+});
+
+function boot(){
+/* ---------------- dados públicos ---------------- */
+db.doc("settings/studio").onSnapshot(s => {
+  S.settings = {...DEFAULT_SETTINGS, ...(s.exists ? s.data() : {})};
+  S.settings.hours = {...DEFAULT_SETTINGS.hours, ...(S.settings.hours||{})};
+  render();
+}, () => render());
+db.collection("services").orderBy("order").onSnapshot(q => {
+  S.services = q.docs.map(d => ({id:d.id, ...d.data()}));
+  render();
+}, () => render());
+
+/* ---------------- autenticação ---------------- */
+auth.onAuthStateChanged(async u => {
+  unsubs.forEach(f => f()); unsubs = [];
+  S.user = u; S.profile = null; S.mine = [];
+  S.isAdmin = !!u && isAdminEmail(u.email);
+  if (u) {
+    unsubs.push(db.doc("users/"+u.uid).onSnapshot(s => { S.profile = s.exists ? s.data() : null; render(); }));
+    unsubs.push(db.collection("bookings").where("uid","==",u.uid).onSnapshot(q => {
+      S.mine = q.docs.map(d => ({id:d.id, ...d.data()})).sort((a,b) => (b.date+b.start).localeCompare(a.date+a.start));
+      render();
+    }, e => console.warn(e)));
+    if (S.isAdmin) startAdmin();
+    if (S.view === "auth") S.view = S.pendingView || (S.isAdmin ? "admin" : "home");
+    if (S.view === "adminLogin" && S.isAdmin) S.view = "admin";
+  } else if (S.view === "admin" || S.view === "mine") {
+    S.view = "home";
+  }
+  render();
+});
+
+}
+boot();
+render();
+})();
+</script>
+</body>
+</html>
