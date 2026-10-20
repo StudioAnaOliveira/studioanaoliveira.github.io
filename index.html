@@ -860,7 +860,7 @@ function aHours(){
     <div class="stack">
       <div class="card stack">
         <h2 class="display" style="font-size:20px">Regras da agenda</h2>
-        <label class="f">Intervalo entre horários (min)<select class="in" id="r_interval">${[15,20,30,45,60].map(n=>`<option ${Number(st.interval)===n?"selected":""}>${n}</option>`).join("")}</select></label>
+        <label class="f">Intervalo entre horários (min)<select class="in" id="r_interval">${[15,20,30,45,60,90,120].map(n=>`<option ${Number(st.interval)===n?"selected":""}>${n}</option>`).join("")}</select></label>
         <label class="f">Antecedência mínima para agendar (horas)<input class="in" type="number" min="0" id="r_lead" value="${esc(st.minLeadHours)}"></label>
         <label class="f">Cliente pode cancelar até (horas antes)<input class="in" type="number" min="0" id="r_cancel" value="${esc(st.cancelHours)}"></label>
         <label class="f">Agenda aberta para os próximos (dias)<input class="in" type="number" min="7" max="120" id="r_max" value="${esc(st.maxDays)}"></label>
